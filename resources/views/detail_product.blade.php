@@ -1,7 +1,6 @@
 @extends('front')
 @section('content')
 @php
-dd($productimage);
 	$jumlahimage = count($productimage)-1;
 @endphp
 	<div class="main-wrapper brk-z-index-10">

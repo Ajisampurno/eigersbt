@@ -91,7 +91,7 @@ class HomefrontController extends Controller
       ->toArray();
 
     $productimage = DB::table("productimage")
-      ->where("productimage.productid", '=', $data_product->productid)
+      ->where("productimage.productid", '=', $data_product->id_product)
       ->get()->toArray();
 
     if ($data_product == null) {
