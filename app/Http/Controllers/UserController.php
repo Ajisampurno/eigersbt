@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\Hash;
 use Yajra\Datatables\Datatables;
 
 class UserController extends Controller
@@ -62,7 +63,7 @@ class UserController extends Controller
             "name" => $req->name,
             "role" => $req->role,
             "username" => $req->username,
-            "password" => $req->password,
+            "password" => Hash::make($req->password),
             "created_at" => Carbon::now('Asia/Jakarta'),
           ]);
 
