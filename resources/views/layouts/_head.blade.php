@@ -69,6 +69,7 @@
   {{-- ez popup style --}}
   {{-- <link rel="stylesheet" type="text/css" href="{{asset('modul_keuangan/js/vendor/ez_popup_v_1_1/ez.popup.css')}}"> --}}
 
+  
 
 <style type="text/css">
 small.text-muted {
@@ -179,3 +180,5 @@ body.modal-open{
     transform: rotate(45deg);
 }
 </style>
+
+

@@ -1,6 +1,6 @@
 @extends('main')
 @section('content')
-
+@include('admin.product.import')
 <style type="text/css">
 
 </style>
@@ -20,9 +20,10 @@
                   <div class="card-body">
                     <h4 class="card-title">Product</h4>
                     <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
-                        <a href="{{ url('/tambahproduct') }}">
-                            <button type="button" class="btn btn-info"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
-                        </a>
+                      <a href="{{ url('/tambahproduct') }}">
+                          <button type="button" class="btn btn-info"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
+                      </a>
+                      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#tambah"><i class="fa fa-folder"></i>&nbsp;&nbsp;Import Data</button>
                     </div>
                     <div class="table-responsive">
         				        <table class="table table_status table-hover " id="table-data" cellspacing="0">

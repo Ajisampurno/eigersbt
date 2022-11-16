@@ -320,7 +320,7 @@
 				var selectedItemValue = $("#searchBox").getSelectedItemData().url_segment;
 
 				$("#searchBox").val("");
-				window.location.href = "{{url('/')}}" + "/produk/" + selectedItemValue;
+				window.location.href = "{{url('/')}}" + "/product/detail/" + selectedItemValue;
 			}
 		},
 

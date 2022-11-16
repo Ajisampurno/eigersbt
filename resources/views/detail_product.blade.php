@@ -13,7 +13,8 @@
 								<div class="row pb-20 justify-content-md-start justify-content-center">
 
 								<div class="col-lg-5 col-sm-12">
-								<!-- slide gambar -->
+
+									<!-- slide gambar -->
 									<div class="container-slideimage">
 										<!-- Flickity HTML init -->
 										<div class="carousel carousel-main" data-flickity='{"pageDots": false }'>
@@ -41,27 +42,32 @@
 											<div class="brk-sc-info-grid d-flex flex-wrap">
 												<div class="">
 													<span class="brk-sc-category__title font__family-montserrat font__size-14 font__weight-bold mr-10 text-uppercase">
-														Harga Mulai:
+														Harga:
 													</span>
 													<div class="fw-bold font__family-montserrat font__weight-light font__size-25 line__height-38">
 														{{ FormatRupiahFront($data_product->priceMin) }}
-														<span class="brk-sc-category__title font__family-montserrat font__size-12 font__weight-bold mr-10 text-uppercase">
-															s/d </span>
-														{{ FormatRupiahFront($data_product->priceMax)}}
 													</div>
 												</div>
 											</div>
+
 											<div class="brk-sc-info-grid d-flex flex-wrap">
-												<div class="pt-3">
-													<span class="brk-sc-category__title font__family-montserrat font__size-14 font__weight-bold mr-10 text-uppercase" style="color:red">
-														{{ $data_product->name }}
+												<div class="">
+													
+													<br>
+													<span class="brk-sc-category__title font__family-montserrat font__size-20 font__weight-bold text-uppercase" style="color:red;">
+														+{{ $data_product->name }}
+													</span>
+													<br>
+													<span class="brk-sc-category__title font__family-montserrat font__size-14 font__weight-bold mr-10 text-uppercase">
+														Harga Menjadi:
 													</span>
 													<div class="fw-bold font__family-montserrat font__weight-light font__size-25 line__height-38 mt-2" >
-														{{ $data_product->price }}
+														{{ FormatRupiahFront($data_product->price)}}
 													</div>
 												</div>
 											</div>
-											<div class="brk-sc-info-grid d-flex flex-wrap pt-4 pb-3">
+											<br>
+											<div class="brk-sc-info-grid d-flex flex-wrap pt-2 pb-3">
 												<div class="">
 													<a target="_blank" href="https://api.whatsapp.com/send?phone={{hp($data->whatsapp)}}&text=*Halo%2C%20{{config('app.name')}}%20%F0%9F%91%8B*%0ASaya%20ingin%20order%20produk%20ini%20:%20%0A%0A{{$data_product->productname}}%20%0A{{url('/')}}/produk/{{$data_product->url_segment}}" class="btn btn-prime btn-lg border-radius-30 font__family-open-sans font__weight-bold m-0 pr-30 pl-30 brk-sc-shop-item__info-btn letter-spacing-40" style="cursor: pointer;">
 														<i class="fab fa-whatsapp" aria-hidden="true"></i>

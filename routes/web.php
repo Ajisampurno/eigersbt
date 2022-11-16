@@ -70,10 +70,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/tambahproduct', 'ProductController@tambahproduct');
     Route::get('/producttable', 'ProductController@datatable');
     Route::post('/simpanproduct', 'ProductController@simpan');
+    Route::post('/import/product', 'ProductController@import');
     Route::get('/editproduct/{id}', 'ProductController@edit');
     Route::get('/hapusproduct', 'ProductController@hapus');
     Route::get('/tofrontproduct', 'ProductController@tofront');
 
+    //SOH
+    Route::get('/soh', 'SohController@index');
+    Route::post('/importsoh', 'SohController@importsoh');
     //Featured
     Route::get('/featured', 'FeaturedController@index');
     Route::get('/featuredtable', 'FeaturedController@datatable');

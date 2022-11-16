@@ -34,12 +34,12 @@
         </div>
         <div class="col-lg-6 align-self-lg-stretch text-left text-lg-right">
           <div class="brk-mini-cart brk-header__item brk-header__element_skin-2">
-            <a href="cart.html" class="brk-mini-cart__open d-flex">
+            <div class="brk-mini-cart__open d-flex">
               <i class="fa fa-shopping-basket" aria-hidden="true"></i>
               <span class="brk-mini-cart__label font__family-montserrat font__weight-medium text-uppercase letter-spacing-60 font__size-10 opacity-80">My cart</span>
               <span class="brk-mini-cart__title">Shopping Cart</span>
               <span class="brk-mini-cart__count brk-mini-cart__count_skin-1 brk-mini-cart__count_white" id="countCart">0</span>
-            </a>
+            </div>
             <div class="brk-mini-cart__menu">
               <div class="brk-mini-cart__header">
                 <span class="font__family-montserrat font__weight-bold font__size-18">Your Cart</span>
@@ -73,27 +73,15 @@
             <img class="brk-header__logo-2 lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{url('/')}}/{{$data->logo_website}}" alt="Purbengkara Logo" style="height: 50px;object-fit:contain;">
           </a>
         </div>
+        
         <div class="col-lg align-self-lg-stretch text-lg-center">
           <nav class="brk-nav brk-header__item">
             <ul class="brk-nav__menu">
-              @foreach ($category as $cat)
-              <li class="brk-nav__children brk-nav__drop-down-effect">
-                <a href="{{url('/')}}/product/search?sort={{$sort}}&show={{$show}}&category={{$cat->id_category}}">
-                  <span>{{$cat->name}}</span>
+              <li>
+                <a href="{{url('/')}}/product/search">
+                  <span>Lihat Semua Product</span>
                 </a>
-                <?php $product = DB::table("product")->where("categoryid", $cat->id_category)->get()->toArray(); ?>
-                @if(count($product) != 0)
-                <ul class="brk-nav__sub-menu brk-nav-drop-down font__weight-semibold font__family-montserrat">
-                  @foreach ($product as $pro)
-                  <li class="dd-effect">
-                    <a href="{{url('/')}}/product/detail/{{$pro->url_segment}}">{{$pro->name}}</a>
-                  </li>
-                  @endforeach
-                </ul>
-                @endif
               </li>
-              @endforeach
-
               <li>
                 <a href="{{url('/')}}/cara-order">
                   <span>Cara Order</span>
@@ -102,6 +90,7 @@
             </ul>
           </nav>
         </div>
+        
         <div class="col-lg-3 align-self-lg-stretch text-lg-right mt-15" style="margin-left: 20px; margin-right: 20px;">
           <form class="brk-search__form" role="search" method="get" action="#" >
             <input class="font__family-open-sans" style="border: 1px solid #4aa6e8; border-radius: 20px; height: 40px" name="s" maxlength="50" type="search" id="searchBox" value="" placeholder="Cari Produk . . .">

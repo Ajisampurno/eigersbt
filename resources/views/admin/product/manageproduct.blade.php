@@ -36,8 +36,16 @@
                       <div class="row">
 
                        <div class="col-md-12 col-sm-12 col-xs-12" style="height: 1%;">
-
                         <div class="row">
+                          <div class="col-md-4 col-sm-6 col-xs-12">
+                              <label>Article</label>
+                            </div>
+                            <div class="col-md-8 col-sm-6 col-xs-12">
+                              <div class="form-group">
+                                <input type="number" id="id_product" class="form-control form-control-sm" name="id_product" value="@if(isset($data)){{$data->id_product}}@endif">
+                                <p id="pesan_id_product"></p>
+                              </div>
+                          </div>
                           <div class="col-md-4 col-sm-6 col-xs-12">
                             <label>Name</label>
                           </div>
@@ -181,7 +189,8 @@ var replaceImageID = [];
 var removeImageID = [];
 
 function validasi() {
-		var name = $( "#name" ).val();
+		var name = $( "#id_product" ).val();
+    var name = $( "#name" ).val();
     var priceMin = $( "#priceMin" ).val();
     var priceMax = $( "#priceMax" ).val();
     var spek = $( "#spek" ).val();
@@ -199,7 +208,10 @@ function validasi() {
       }
     }
 
-    if (name == ""){
+    if (id_product == ""){
+      $( "#id_product" ).focus().css("border-color","red");
+      $("#pesan_id_product").html("Article tidak boleh kosong!").css("color", "red");
+    }else if (name == ""){
       $( "#name" ).focus().css("border-color","red");
       $("#pesan_name").html("Nama tidak boleh kosong!").css("color", "red");
     }else if (priceMin == "") {

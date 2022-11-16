@@ -2,25 +2,38 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\mMember;
-
-use App\Authentication;
+use DB;
 
 use Auth;
-
-use Carbon\Carbon;
-
-use Session;
-
-use DB;
 
 use File;
 
 use Crypt;
 
+use Session;
+
+use App\mMember;
+
+use Carbon\Carbon;
+
+use App\Authentication;
+
+use Illuminate\Http\Request;
+
 use Yajra\Datatables\Datatables;
+
+use Illuminate\Routing\Controller;
+
+use Maatwebsite\Excel\Facades\Excel;
+
+use App\Http\Controllers\SosmedController;
+use App\Http\Controllers\SettingController;
+use App\Http\Controllers\CategoryController;
+
+use App\Imports\importproduct;
+
+
+
 
 class ProductController extends Controller
 {
@@ -38,6 +51,25 @@ class ProductController extends Controller
       ->get()->toArray();
 
     return $data;
+  }
+
+  public function import(Request $request)
+  {
+
+    // menangkap file excel
+    $file = $request->file('file');
+
+    // membuat nama file unik
+    $nama_file = rand() . $file->getClientOriginalName();
+
+    // upload ke folder file_siswa di dalam folder public
+    $file->move('file_product', $nama_file);
+
+    // import data
+    Excel::import(new importproduct, public_path('/file_product/' . $nama_file));
+
+    // alihkan halaman kembali
+    return redirect('/product');
   }
 
   public function searchWord(Request $req)
@@ -273,7 +305,6 @@ class ProductController extends Controller
   public function index()
   {
     $data = ProductController::getProduct();
-
     return view('admin.product.index', compact('data'));
   }
 
@@ -288,6 +319,7 @@ class ProductController extends Controller
 
   public function datatable()
   {
+
     $data = DB::table("product")
       ->select("product.*", "productimage.*", "category.name as categoryname")
       ->join("category", "category.id_category", '=', 'product.categoryid')
@@ -296,7 +328,8 @@ class ProductController extends Controller
       ->get()
       ->toArray();
 
-    return Datatables::of($data)
+
+    return  Datatables::of($data)
       ->addColumn('aksi', function ($data) {
         if ($data->tofront == "Y") {
           $actionfront = '<button type="button" onclick="toFront(' . $data->id_product . ')" class="btn btn-warning btn-lg" title="to Front">' .
@@ -321,7 +354,12 @@ class ProductController extends Controller
         return  FormatRupiahFront($data->priceMin);
       })
       ->addColumn("image", function ($data) {
-        return '<div> <img src="' . $data->image . '" style="height: 100px; width:100px; border-radius: 0px;" class="img-responsive"> </img> </div>';
+        if ($data->image == "0") {
+          $colomimage = '<img src="https://cdn-icons-png.flaticon.com/512/4904/4904233.png" style="height: 100px; width:100px; border-radius: 0px;" class="img-responsive"> </img>';
+        } else {
+          $colomimage = '<img src="' . $data->image . '" style="height: 100px; width:100px; border-radius: 0px;" class="img-responsive"> </img>';
+        }
+        return '<div>' . $colomimage . '</div>';
       })
       ->rawColumns(['aksi', 'image'])
       ->addIndexColumn()
@@ -335,7 +373,7 @@ class ProductController extends Controller
       DB::beginTransaction();
       try {
 
-        $idproduct = DB::table("product")->max('id_product') + 1;
+        $idproduct = $req->id_product;
         $priceMax = str_replace("Rp. ", "", $req->priceMax);
         $priceMax = str_replace(".", "", $priceMax);
         $priceMin = str_replace("Rp. ", "", $req->priceMin);

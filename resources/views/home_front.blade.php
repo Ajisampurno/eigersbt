@@ -18,6 +18,7 @@
   </div>
 @endif
 
+<!--
 @if($featured != null)
 <div class="main-wrapper" id="fitur">
 	<main class="main-container pb-70">
@@ -31,7 +32,7 @@
 					<div class="col-lg-3">
 						<div class="services-architecture">
 							<div class="services-architecture__icon">
-								<!-- <i class="fas fa-car"></i> -->
+								
                 <img src="{{url('/')}}/{{$feature->icon}}" alt="{{$feature->name}}" width="68" height="68">
 							</div>
 							<div class="services-architecture__container">
@@ -47,38 +48,110 @@
 	</main>
 </div>
 @endif
+-->
 
+<!-- diskon -->
+<div class="main-wrapper" id="produk">
+	<main class="main-container pt-5 pb-70">
+    <section>
+				<div class="container">
+					<div class="text-center">
+						<h3 class="font__family-montserrat font__size-28 font__weight-bold">
+							Yang lagi diskon
+						</h3>
+					</div>
+				</div>
+            <div class="brk-shop-grid-filter__items row mt-5">
+              @foreach($product_diskon as $pro)
+              <div class="col-xl-3 col-md-6 brk-shop-grid-filter__item {{preg_replace('/\s+/', '', strtolower($pro->categoryname))}}" @if($pro->specialname == null) onclick="openDetail(this)" data-url_segment="{{$pro->url_segment}}" @endif>
+                  <div @if($pro->specialname != null) class="brk-shop-grid-filter-strict brk-shop-grid-filter-strict_hover" @else class="brk-shop-grid-filter-strict" @endif>
+                    <div class="brk-shop-grid-filter-strict__thumb" style="border-top-left-radius: 20px; border-top-right-radius: 20px;">
+                      @if($pro->image != null)
+                      <img src="{{url('/')}}/{{$pro->image}}" alt="{{$pro->productname}}" style="border-top-left-radius: 20px; border-top-right-radius: 20px;">
+                      @else
+                      <img src="https://cdn-icons-png.flaticon.com/512/4904/4904233.png" alt="Default Image" style="border-top-left-radius: 20px; border-top-right-radius: 20px;">
+                      @endif
+                    </div>
+                    <div class="brk-shop-grid-filter-strict__inform text-center d-flex flex-column align-content-center justify-content-center">
+                      <h4 class="font__family-montserrat font__weight-bold font__size-18">{{$pro->productname}}</h4>
+                      <div class="price brk-base-font-color font__family-montserrat font__size-15 line__height-22 font__weight-medium">
+                        <!-- <span class="old-price brk-dark-font-color">$26.00</span> -->
+                        <span class="font__weight-bold">{{FormatRupiahFront($pro->priceMin)}}</span>
+                      </div>
+                    </div>
+                    <!-- <div class="brk-shop-grid-filter-strict__stick brk-white-font-color font__family-montserrat font__weight-bold">New</div> -->
+
+                    @if($pro->specialname != null)
+                    <div class="before brk-sc-tiles-split-gradient"></div>
+                    <div class="brk-shop-grid-filter-strict__back">
+                      <div class="brk-shop-grid-filter-strict__inform text-center d-flex flex-column align-content-center justify-content-center" onclick="openDetail(this)" data-url_segment="{{$pro->url_segment}}" style="cursor: pointer;">
+                        <h4 class="font__family-montserrat font__weight-bold font__size-18">{{$pro->specialname}}</h4>
+                        <div class="price brk-base-font-color font__family-montserrat font__size-15 line__height-22 font__weight-medium">
+                          <!-- <span class="old-price brk-dark-font-color">{{$pro->specialprice}}</span> -->
+                          <span class="font__weight-bold">{{$pro->specialprice}}</span>
+                        </div>
+                      </div>
+                      <div class="brk-shop-grid-filter-strict__list pt-20 pb-20">
+                        <ul class="font__size-15 line__height-20 font__weight-light text-left letter-spacing-60">
+                          <?php $note = explode("+",$pro->note) ?>
+                          @for ($i = 0; $i < count($note); $i++)
+                            <li class="d-flex font__weight-bold"><i class="far fa-check brk-blue-light-font-color"></i><span class="letter-spacing-40">{{$note[$i]}}</span></li>
+                          @endfor
+                        </ul>
+                      </div>
+                      <div class="text-center pt-35">
+                        <div class="brk-shop-grid-filter-strict__actions clearfix brk-base-box-shadow-primary">
+                            <a onclick="addCart(this)" data-id="{{$pro->id_product}}" data-image="{{url('/')}}/{{$pro->image}}" data-name="{{$pro->productname}}" data-link="{{url('/')}}/product/detail/{{$pro->url_segment}}" data-price="Mulai {{FormatRupiahFront($pro->priceMin)}} - {{FormatRupiahFront($pro->priceMax)}}" style="cursor: pointer;" class="add-cart brk-bg-color"><i class="fas fa-shopping-cart brk-white-font-color"></i></a>
+                            <a href="{{url('/')}}/product/detail/{{$pro->url_segment}}" class="add-wishlist brk-bg-color"><i class="fal fa-folder-open brk-white-font-color"></i></a>
+                            <a href="https://api.whatsapp.com/send?phone={{hp($data->whatsapp)}}&text=*Halo%2C%20{{config('app.name')}}%20%F0%9F%91%8B*%0ASaya%20ingin%20order%20produk%20ini%20:%20%0A%0A{{$pro->productname}}%20%0A{{url('/')}}/product/detail/{{$pro->url_segment}}" class="add-compare brk-bg-color"><i class="fab fa-whatsapp brk-white-font-color"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                    @endif
+                  </div>
+                </div>
+              @endforeach
+            </div>
+          </div>
+        </div>
+			</section>
+  </main>
+</div>
+
+<!-- produk rekomendasi -->
 @if($product != null)
 <div class="main-wrapper" id="produk">
 	<main class="main-container pb-70">
     <section>
-				<div class="container mb-30">
+				<div class="container">
 					<div class="text-center">
 						<h3 class="font__family-montserrat font__size-28 font__weight-bold">
-							Produk Kami
+							Produk rekomendasi
 						</h3>
 					</div>
 				</div>
+        
         <div class="container">
           <div class="brk-shop-grid-filter">
+            
             <ul class="brk-shop-grid-filter__button brk-shop-grid-filter__button_style-1">
-              <li class="checked" data-filter="*">
-                <div class="brk-shop-grid-filter__button-text">
-                  <i class="fal fa-th"></i>
-                  All
-                </div>
-                <span class="before brk-base-bg-gradient-14"></span>
-              </li>
-              @foreach($category as $kategori)
-              <li data-filter=".{{preg_replace('/\s+/', '', strtolower($kategori->name))}}">
-                <div class="brk-shop-grid-filter__button-text">
-                  {{$kategori->name}}
-                </div>
-                <span class="before brk-base-bg-gradient-14"></span>
-              </li>
-              @endforeach
+              <div class="form-group">
+                <label for="exampleFormControlSelect2">Pilih category produk rekomendasi</label>
+                <select multiple class="form-control" id="exampleFormControlSelect2">
+                  <option class="checked" data-filter="*">
+                    <i class="fal fa-th"></i>
+                    All
+                  </option>
+                  @foreach($category as $kategori)
+                  <option data-filter=".{{preg_replace('/\s+/', '', strtolower($kategori->name))}}">
+                    {{$kategori->name}}
+                  </option>
+                  @endforeach
+                </select>
+              </div>
             </ul>
-            <div class="brk-shop-grid-filter__items row">
+
+            <div class="brk-shop-grid-filter__items row mt-5 pt-5">
               @foreach($product as $pro)
               <div class="col-xl-3 col-md-6 brk-shop-grid-filter__item {{preg_replace('/\s+/', '', strtolower($pro->categoryname))}}" @if($pro->specialname == null) onclick="openDetail(this)" data-url_segment="{{$pro->url_segment}}" @endif>
                   <div @if($pro->specialname != null) class="brk-shop-grid-filter-strict brk-shop-grid-filter-strict_hover" @else class="brk-shop-grid-filter-strict" @endif>
@@ -93,7 +166,7 @@
                       <h4 class="font__family-montserrat font__weight-bold font__size-18">{{$pro->productname}}</h4>
                       <div class="price brk-base-font-color font__family-montserrat font__size-15 line__height-22 font__weight-medium">
                         <!-- <span class="old-price brk-dark-font-color">$26.00</span> -->
-                        <span class="font__weight-bold">Mulai {{FormatRupiahFront($pro->priceMin)}} - {{FormatRupiahFront($pro->priceMax)}}</span>
+                        <span class="font__weight-bold">{{FormatRupiahFront($pro->priceMin)}}</span>
                       </div>
                     </div>
                     <!-- <div class="brk-shop-grid-filter-strict__stick brk-white-font-color font__family-montserrat font__weight-bold">New</div> -->

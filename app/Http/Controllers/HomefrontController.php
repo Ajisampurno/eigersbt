@@ -19,8 +19,9 @@ class HomefrontController extends Controller
     $all = false;
     $show = 10;
     $categoryFilter = 0;
+    $diskon =
 
-    $product = DB::table("product")
+      $product = DB::table("product")
       //->where("product.categoryid", '=', $categoryFilter)
       ->select("product.*", "product.name as productname", "category.name as categoryname", "productimage.*", "specialprice.*", "specialprice.name as specialname", "specialprice.price as specialprice")
       ->join("category", 'category.id_category', '=', 'product.categoryid')
@@ -30,7 +31,17 @@ class HomefrontController extends Controller
       ->where("product.tofront", "Y")
       ->get()->toArray();
 
-    return view("home_front", compact('data', 'sosmed', 'category', 'featured', 'slideimage', 'product', 'show', 'sort', 'categoryFilter', 'all'));
+    $product_diskon = DB::table("product")
+      //->where("product.categoryid", '=', $categoryFilter)
+      ->select("product.*", "product.name as productname", "category.name as categoryname", "productimage.*", "specialprice.*", "specialprice.name as specialname", "specialprice.price as specialprice")
+      ->join("category", 'category.id_category', '=', 'product.categoryid')
+      ->leftjoin("specialprice", "specialprice.productid", '=', "product.id_product")
+      ->leftjoin("productimage", 'productimage.productid', '=', 'product.id_product')
+      ->groupBy("product.id_product")
+      ->where("specialprice.id_specialprice", "!=", null)
+      ->get()->toArray();
+
+    return view("home_front", compact('data', 'sosmed', 'category', 'featured', 'slideimage', 'product', 'product_diskon', 'show', 'sort', 'categoryFilter', 'all'));
   }
 
   public function caraorder()
@@ -69,7 +80,7 @@ class HomefrontController extends Controller
       ->groupBy("product.id_product")
       ->first();
 
-    $customTitle = "Purbengkara | " . $data_product->productname;
+    $customTitle = "Eigeradenturestore-SBT | " . $data_product->productname;
     $customImage = $data_product->image;
     $data = SettingController::getSettingProduk($data_product);
 

@@ -58,7 +58,7 @@
                         </div>
                         <div class="brk-base-font-color font__family-montserrat font__size-17 font__weight-medium" style="padding-right: 5px; padding-left: 5px;">
                           <span class="font__weight-semibold">
-                            Mulai {{FormatRupiahFront($pro->priceMin)}} - {{FormatRupiahFront($pro->priceMax)}}
+                            {{FormatRupiahFront($pro->priceMin)}}
                           </span>
                         </div>
                       </div>
