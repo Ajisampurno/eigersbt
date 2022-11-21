@@ -368,7 +368,6 @@ class ProductController extends Controller
 
   public function simpan(Request $req)
   {
-
     if ($req->id == null) {
       DB::beginTransaction();
       try {

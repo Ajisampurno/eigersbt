@@ -56,7 +56,7 @@
 
 var table = $('#table-data').DataTable({
         processing: true,
-        // responsive:true,
+        //responsive:true,
         serverSide: true,
         searching: true,
         paging: true,
@@ -239,8 +239,8 @@ var table = $('#table-data').DataTable({
   	});
   }
 
-  function reloadall() {
-    table.ajax.reload();
-  }
+//  function reloadall() {
+//    table.ajax.reload();
+//  }
 </script>
 @endsection

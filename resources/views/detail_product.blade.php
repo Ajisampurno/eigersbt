@@ -50,9 +50,11 @@
 												</div>
 											</div>
 
+
 											<div class="brk-sc-info-grid d-flex flex-wrap">
 												<div class="">
 													
+													@if($data_product->price != null)
 													<br>
 													<span class="brk-sc-category__title font__family-montserrat font__size-20 font__weight-bold text-uppercase" style="color:red;">
 														+{{ $data_product->name }}
@@ -64,6 +66,7 @@
 													<div class="fw-bold font__family-montserrat font__weight-light font__size-25 line__height-38 mt-2" >
 														{{ FormatRupiahFront($data_product->price)}}
 													</div>
+													@endif
 												</div>
 											</div>
 											<br>

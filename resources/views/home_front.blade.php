@@ -57,7 +57,7 @@
 				<div class="container">
 					<div class="text-center">
 						<h3 class="font__family-montserrat font__size-28 font__weight-bold">
-							Yang lagi diskon
+							Product Diskon
 						</h3>
 					</div>
 				</div>
@@ -117,6 +117,7 @@
 			</section>
   </main>
 </div>
+<hr>
 
 <!-- produk rekomendasi -->
 @if($product != null)
@@ -126,31 +127,26 @@
 				<div class="container">
 					<div class="text-center">
 						<h3 class="font__family-montserrat font__size-28 font__weight-bold">
-							Produk rekomendasi
+							New Arival
 						</h3>
 					</div>
 				</div>
         
         <div class="container">
           <div class="brk-shop-grid-filter">
-            
+          <!--
             <ul class="brk-shop-grid-filter__button brk-shop-grid-filter__button_style-1">
-              <div class="form-group">
-                <label for="exampleFormControlSelect2">Pilih category produk rekomendasi</label>
-                <select multiple class="form-control" id="exampleFormControlSelect2">
-                  <option class="checked" data-filter="*">
+                <li class="checked" data-filter="*">
                     <i class="fal fa-th"></i>
                     All
-                  </option>
+                  </li>
                   @foreach($category as $kategori)
-                  <option data-filter=".{{preg_replace('/\s+/', '', strtolower($kategori->name))}}">
-                    {{$kategori->name}}
-                  </option>
-                  @endforeach
-                </select>
-              </div>
+                  <li data-filter=".{{preg_replace('/\s+/', '', strtolower($kategori->name))}}">
+                    <p style="font-size: 10px;margin:5px">{{$kategori->name}}</p>
+                  </li>
+                  @endforeach  
             </ul>
-
+          -->
             <div class="brk-shop-grid-filter__items row mt-5 pt-5">
               @foreach($product as $pro)
               <div class="col-xl-3 col-md-6 brk-shop-grid-filter__item {{preg_replace('/\s+/', '', strtolower($pro->categoryname))}}" @if($pro->specialname == null) onclick="openDetail(this)" data-url_segment="{{$pro->url_segment}}" @endif>

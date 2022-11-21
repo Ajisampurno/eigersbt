@@ -171,6 +171,13 @@
               </a>
             </li>
 
+            <li class="nav-item {{Request::is('tambah_image') ? 'active' : ''}} || {{Request::is('product/*') ? 'active' : '' }}">
+              <a class="nav-link" href="{{url('/tambah_image')}}">
+                <span class="menu-title">Image Product</span>
+                <i class="mdi mdi-image menu-icon"></i>
+              </a>
+            </li>
+
             <li class="nav-item {{Request::is('specialprice') ? 'active' : ''}} || {{Request::is('specialprice/*') ? 'active' : '' }}">
               <a class="nav-link" href="{{url('/specialprice')}}">
                 <span class="menu-title">Special Price</span>

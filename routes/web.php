@@ -93,4 +93,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/editspecialprice/{id}', 'SpecialpriceController@edit');
     Route::get('/hapusspecialprice', 'SpecialpriceController@hapus');
     Route::get('/detailspecialprice', 'SpecialpriceController@detail');
+
+    //image
+    Route::get('/tambah_image', 'TambahimageController@index');
+    Route::post('/simpanimage', 'TambahimageController@simpan');
 }); // End Route Groub middleware auth
