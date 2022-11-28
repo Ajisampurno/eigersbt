@@ -57,7 +57,7 @@
 				<div class="container">
 					<div class="text-center">
 						<h3 class="font__family-montserrat font__size-28 font__weight-bold">
-							Product Diskon
+							Special Price
 						</h3>
 					</div>
 				</div>

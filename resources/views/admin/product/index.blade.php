@@ -19,11 +19,16 @@
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">Product</h4>
+                    @if (session('sukses'))
+                    <div class="alert alert-success" role="alert">
+                      Success, Product Berhasil Disimpan
+                    </div>
+                    @endif
                     <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
                       <a href="{{ url('/tambahproduct') }}">
                           <button type="button" class="btn btn-info"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
                       </a>
-                      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#tambah"><i class="fa fa-folder"></i>&nbsp;&nbsp;Import Data</button>
+                      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#tambah"><i class="fa fa-folder"></i>&nbsp;&nbsp;Import</button>
                     </div>
                     <div class="table-responsive">
         				        <table class="table table_status table-hover " id="table-data" cellspacing="0">
@@ -239,8 +244,8 @@ var table = $('#table-data').DataTable({
   	});
   }
 
-//  function reloadall() {
-//    table.ajax.reload();
-//  }
+ // function reloadall() {
+ //   table.ajax.reload();
+ // }
 </script>
 @endsection

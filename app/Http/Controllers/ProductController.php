@@ -22,6 +22,8 @@ use Illuminate\Http\Request;
 
 use Yajra\Datatables\Datatables;
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
 use Illuminate\Routing\Controller;
 
 use Maatwebsite\Excel\Facades\Excel;
@@ -56,20 +58,41 @@ class ProductController extends Controller
   public function import(Request $request)
   {
 
-    // menangkap file excel
-    $file = $request->file('file');
+    DB::table('product')->truncate();
 
-    // membuat nama file unik
-    $nama_file = rand() . $file->getClientOriginalName();
+    $file_name = $_FILES['file']['name'];
+    $file_data = $_FILES['file']['tmp_name'];
 
-    // upload ke folder file_siswa di dalam folder public
-    $file->move('file_product', $nama_file);
 
-    // import data
-    Excel::import(new importproduct, public_path('/file_product/' . $nama_file));
+    $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile($file_data);
+    $spreedsheet = $reader->load($file_data);
+    $sheetdata = $spreedsheet->getActiveSheet()->toArray();
 
+    $jumlah_data = 0;
+    for ($i = 1; $i < count($sheetdata); $i++) {
+      $id_product = $sheetdata[$i][0];
+      $name = $sheetdata[$i][1];
+      $url_segment = $sheetdata[$i][2];
+      $priceMin = $sheetdata[$i][3];
+      $priceMax = $sheetdata[$i][4];
+      $spek = $sheetdata[$i][5];
+      $categoryid = $sheetdata[$i][6];
+      $tofront = $sheetdata[$i][7];
+
+      DB::table("product")
+        ->insert([
+          "id_product" => $id_product,
+          "name" => $name,
+          "url_segment" => $url_segment,
+          "priceMin" => $priceMin,
+          "priceMax" => $priceMax,
+          "spek" => $spek,
+          "categoryid" => $categoryid,
+          "tofront" => $tofront
+        ]);
+    }
     // alihkan halaman kembali
-    return redirect('/product');
+    return redirect('/product')->with('sukses', 'sukses');
   }
 
   public function searchWord(Request $req)
